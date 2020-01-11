@@ -11,7 +11,9 @@ Django app for the test application.
 
 Install Docker following the [official instructions](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
 Do not forget to excecute the [post-installation steps](https://docs.docker.com/install/linux/linux-postinstall/).
+Install docker-compose (`sudo apt-get install docker-compose`)
 
+Get the docker image for Postgres (`docker pull postgres`)
 
 Please install the following packages (assuming `python` points to your Python 3 installation):
 * Django: `python -m pip install Django`
@@ -19,4 +21,7 @@ Please install the following packages (assuming `python` points to your Python 3
 (Note: this Python package has a dependency with PostgreSQL devel in Ubuntu.
 If the installation fails, please install `sudo apt-get install libpq-dev`)
 * Django all auth: `python -m pip install django-allauth`
+
+## Initialization
+* Start the Postgres Docker container: `docker-compose -f stack.yml up`
 
