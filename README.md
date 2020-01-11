@@ -9,6 +9,10 @@ Django app for the test application.
 
 ## Project Setup:
 
+Install Docker following the [official instructions](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
+Do not forget to excecute the [post-installation steps](https://docs.docker.com/install/linux/linux-postinstall/).
+
+
 Please install the following packages (assuming `python` points to your Python 3 installation):
 * Django: `python -m pip install Django`
 * Required package for PostgreSQL `python -m pip install psycopg2` 
