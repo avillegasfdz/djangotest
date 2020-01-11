@@ -9,5 +9,8 @@ Django app for the test application.
 
 ## Project Setup:
 
-Please install the following packages:
-* Django: `python3 -m pip install Django`
+Please install the following packages (assuming `python` points to your Python 3 installation):
+* Django: `python -m pip install Django`
+* Required package for PostgreSQL `python -m pip install psycopg2`
+* Django social auth: `python -m pip install social-auth-app-django`
+
