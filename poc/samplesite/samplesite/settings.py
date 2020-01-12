@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'sampleapp.apps.SampleappConfig',
     'django.contrib.auth',
     'django.contrib.sites',  # Authentication
     'django.contrib.contenttypes',

@@ -8,6 +8,7 @@ Django app for the test application.
 * unittest: Unit tests of the application
 
 ## Project Setup:
+These set up instuctions are for Ubuntu 18.04
 
 Install Docker following the [official instructions](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
 Do not forget to excecute the [post-installation steps](https://docs.docker.com/install/linux/linux-postinstall/).
