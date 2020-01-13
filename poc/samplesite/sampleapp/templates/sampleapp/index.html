@@ -22,5 +22,12 @@
 {% else %}
     <p>No administrators are available.</p>
 {% endif %}
+
+<h1>Add administrator</h1>
+<form action="thanks/" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+</form>
 </body>
 </html>
