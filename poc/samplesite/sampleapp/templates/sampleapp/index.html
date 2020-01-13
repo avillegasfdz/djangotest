@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% if administrators %}
+    <ul>
+        <h2>Administrators</h2>
+        {% for admin in administrators %}
+            {{admin.name}}:{{admin.id}}
+        {% endfor %}
+
+        {% if customers %}
+            <h2>Customers</h2>
+            {% for customer in customers %}
+                {{customer.name}} {{customer.last_name}}: {{customer.id}}
+            {% endfor %}
+        {% endif %}
+    </ul>
+{% else %}
+    <p>No administrators are available.</p>
+{% endif %}
+</body>
+</html>

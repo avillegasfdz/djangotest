@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.template import loader
 
 from sampleapp.models import Customer, Administrator, Account
 
@@ -30,11 +31,21 @@ def index(request):
     acc2.save()
     acc3.save()
 
-    admins_str = " ".join(list(map(lambda elem: elem.name, Administrator.objects.all())))
-    customers_str = " ".join(list(
-        map(lambda elem: elem.name + " " + elem.last_name + " " + str(elem.administrator_id), Customer.objects.all())))
-    accounts_str = " ".join(list(map(lambda elem: elem.iban + " " + str(elem.owner), Account.objects.all())))
+    # admins_str = " ".join(list(map(lambda elem: elem.name, Administrator.objects.all())))
+    # customers_str = " ".join(list(
+    #     map(lambda elem: elem.name + " " + elem.last_name + " " + str(elem.administrator_id), Customer.objects.all())))
+    # accounts_str = " ".join(list(map(lambda elem: elem.iban + " " + str(elem.owner), Account.objects.all())))
+    #
+    # return HttpResponse("Hello, world! \n" + "ADMINS: " + admins_str + "\n" +
+    #                     "CUSTOMERS: " + customers_str + "\n" +
+    #                     "ACCOUNTS: " + accounts_str + "\n")
 
-    return HttpResponse("Hello, world! \n" + "ADMINS: " + admins_str + "\n" +
-                        "CUSTOMERS: " + customers_str + "\n" +
-                        "ACCOUNTS: " + accounts_str + "\n")
+    administrator_list = [admin1, admin2]
+    customer_list = [customer1, customer2, customer3]
+
+    template = loader.get_template('sampleapp/index.html')
+    context = {
+        'administrators': administrator_list,
+        'customers': customer_list,
+    }
+    return HttpResponse(template.render(context, request))
