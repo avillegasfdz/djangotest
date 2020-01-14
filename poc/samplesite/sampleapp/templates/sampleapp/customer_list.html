@@ -1,0 +1,36 @@
+{% extends "sampleapp/base.html" %}
+
+{% block content %}
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Name</td>
+            <td>Last Name</td>
+            <td>Administrator</td>
+            <td>
+            <a href="{% url 'customer_insert' customer.id">
+                Add new
+            </a>
+        </td>
+        </tr>
+    </thead>
+    <tbody>
+    {% for customer in customer_list %}
+        <td>{{customer.name}}</td>
+        <td>{{customer.last_name}}</td>
+        <td>{{customer.administrator}}</td>
+        <td>
+            <a href="{% url 'customer_update' customer.id">
+                Edit
+            </a>
+            <form action="{% url 'customer_delete' customer.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit">
+                    Delete
+                </button>
+            </form>
+        </td>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}
