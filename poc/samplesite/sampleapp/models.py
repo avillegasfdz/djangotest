@@ -9,7 +9,7 @@ class Administrator(models.Model):
     def __str__(self):
         return self.name
 
-    class Customer(models.Model):
+class Customer(models.Model):
     administrator = models.ForeignKey(Administrator, on_delete=models.PROTECT)  # Can't delete administrators until
     # all customers are moved to a different administator
     name = models.CharField(max_length=20)

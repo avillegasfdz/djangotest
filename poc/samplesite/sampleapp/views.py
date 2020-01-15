@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render
 from django.template import loader
-from django.shorcuts import render, redirect
+from django.shortcuts import render, redirect
 
 from sampleapp.models import Customer, Administrator, Account
 
@@ -86,7 +86,8 @@ def customer_list(request):
 def customer_form(request, id=None):
     if request.method == "GET":
         if not id:  # Insert operation
-            form = CustomerForm()
+            administrator = Administrator.objects.all()[0]
+            form = CustomerForm(initial={'administrator': administrator})
         else:  # Update Operation
             customer = Customer.objects.get(pk=id)
             form = CustomerForm(instance=customer)
@@ -94,7 +95,7 @@ def customer_form(request, id=None):
         return render(request, "sampleapp/customer_form.html", {"form":form})
     else:
         if not id:  # Insert operation
-            form = CustomerForm(request.POST)
+            form = CustomerForm(request.POST, initial={'administrator': 1})
         else:  # Update Operation
             customer = Customer.objects.get(pk=id)
             form = CustomerForm(request.POST,instance=customer)

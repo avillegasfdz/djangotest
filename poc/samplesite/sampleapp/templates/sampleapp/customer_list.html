@@ -8,7 +8,7 @@
             <td>Last Name</td>
             <td>Administrator</td>
             <td>
-            <a href="{% url 'customer_insert' customer.id">
+            <a href="{% url 'customer_insert' %}">
                 Add new
             </a>
         </td>
@@ -20,7 +20,7 @@
         <td>{{customer.last_name}}</td>
         <td>{{customer.administrator}}</td>
         <td>
-            <a href="{% url 'customer_update' customer.id">
+            <a href="{% url 'customer_update' customer.id %}">
                 Edit
             </a>
             <form action="{% url 'customer_delete' customer.id %}" method="post">
@@ -30,6 +30,7 @@
                 </button>
             </form>
         </td>
+        <br>
     {% endfor %}
     </tbody>
 </table>

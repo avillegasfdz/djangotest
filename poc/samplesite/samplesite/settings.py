@@ -41,9 +41,8 @@ INSTALLED_APPS = [
     'allauth',  # Authentication
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.google'
-    
-    'crispy_forms',
+    'allauth.socialaccount.providers.google',
+
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

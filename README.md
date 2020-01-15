@@ -22,6 +22,8 @@ Please install the following packages (assuming `python` points to your Python 3
 (Note: this Python package has a dependency with PostgreSQL devel in Ubuntu.
 If the installation fails, please install `sudo apt-get install libpq-dev`)
 * Django all auth: `python -m pip install django-allauth`
+* LocalFlavor: `python -m pip install localflavor`
+
 
 ## Initialization
 * Start the Postgres Docker container: `docker-compose -f stack.yml up`
