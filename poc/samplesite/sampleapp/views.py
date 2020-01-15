@@ -1,10 +1,14 @@
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render
 from django.template import loader
+from django.shorcuts import render, redirect
 
 from sampleapp.models import Customer, Administrator, Account
 
+
 from .forms import NameForm
+from .forms import CustomerForm
+
 
 
 def index(request):
@@ -59,6 +63,7 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 
+
 def added(request):
     if request.method == 'POST':
         form = NameForm(request.POST)
@@ -72,3 +77,36 @@ def added(request):
         return HttpResponse(template.render(context, request))
     else:
         pass
+
+def customer_list(request):
+    context = {"customer_list": Customer.objects.all()}
+    return render(request, "sampleapp/customer_list.html", context)
+
+
+def customer_form(request, id=None):
+    if request.method == "GET":
+        if not id:  # Insert operation
+            form = CustomerForm()
+        else:  # Update Operation
+            customer = Customer.objects.get(pk=id)
+            form = CustomerForm(instance=customer)
+
+        return render(request, "sampleapp/customer_form.html", {"form":form})
+    else:
+        if not id:  # Insert operation
+            form = CustomerForm(request.POST)
+        else:  # Update Operation
+            customer = Customer.objects.get(pk=id)
+            form = CustomerForm(request.POST,instance=customer)
+
+        if form.is_valid():
+            form.save()
+        return redirect("/sampleapp/list")
+
+
+
+def customer_delete(request, id):
+    customer = Customer.objects.get(pk=id)
+    customer.delete()
+    return redirect("/sampleapp/list")
+
