@@ -25,4 +25,8 @@ If the installation fails, please install `sudo apt-get install libpq-dev`)
 
 ## Initialization
 * Start the Postgres Docker container: `docker-compose -f stack.yml up`
+* Create the superuser: `python manage.py createsuperuser`
+* Add Google as social application with name=GL, 
+client_id=981887593937-be448n97e939ictakl7kaikmqqlrfu6g.apps.googleusercontent.com
+and secret=J0y4bq5e6mS-MNqFeWvjMnBS
 

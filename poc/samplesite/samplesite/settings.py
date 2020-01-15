@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = 'b0#=u!dxc+70c)onh)bl#3q*-)ut@x$5i9c+$$91pg20up87*b'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -70,18 +68,12 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-
-                # 'social_django.context_processors.backends',  # Social login
-                # 'social_django.context_processors.login_redirect',  # Social login
             ],
         },
     },
 ]
 
-
-
 WSGI_APPLICATION = 'samplesite.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -96,8 +88,6 @@ DATABASES = {
         'PORT': '',
     }
 }
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -117,7 +107,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -131,12 +120,10 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-
 
 # All below refers to allauth configuration
 AUTHENTICATION_BACKENDS = (
@@ -144,4 +131,21 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',  # allauth backend
 )
 
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'APP': {
+            'client_id': '981887593937-be448n97e939ictakl7kaikmqqlrfu6g.apps.googleusercontent.com',
+            'secret': 'J0y4bq5e6mS-MNqFeWvjMnBS',
+            'key': ''
+        }
+    }
+}
+
 SITE_ID = 1
+
+ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login'
+LOGIN_REDIRECT_URL = '/sampleapp'

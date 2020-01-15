@@ -5,6 +5,8 @@
     <title>Title</title>
 </head>
 <body>
+<p>You're logged in with {{ user.get_provider }} as {{ user }}.</p>
+
 {% if administrators %}
     <ul>
         <h2>Administrators</h2>
