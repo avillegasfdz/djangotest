@@ -1,4 +1,6 @@
 from django import forms
+from localflavor.generic.countries.sepa import IBAN_SEPA_COUNTRIES
+from localflavor.generic.forms import IBANFormField
 
 from .models import Customer, Administrator, Account
 
@@ -28,6 +30,7 @@ class CustomerForm(forms.ModelForm):
 class AccountForm(forms.ModelForm):
     owner = forms.ModelChoiceField(queryset=Customer.objects.all(),
                                    widget=forms.HiddenInput())
+    iban = IBANFormField(include_countries=IBAN_SEPA_COUNTRIES)
     class Meta:
         model = Account
         fields = ("owner", "iban")

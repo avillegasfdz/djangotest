@@ -1,0 +1,34 @@
+{% extends "sampleapp/base_account.html" %}
+
+{% block content %}
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Accounts for {{customer_name}} </td>
+            <td>
+            <a href="{% url 'add_account' customer_id %}">
+                Add new
+            </a>
+            </td>
+            <td>
+            <a href="{% url 'customer_list' %}">
+                Back to customer list
+            </a>
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+    {% for account in account_list %}
+        <td>{{account.iban}}</td>
+        <td>
+                <form action="{% url 'account_delete' customer_id account.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit">
+                    Delete
+                </button>
+            </form>
+        </td>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

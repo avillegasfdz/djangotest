@@ -108,16 +108,29 @@ def customer_delete(request, id):
     return redirect("/sampleapp/list")
 
 
+def account_delete(request, id, account_id):
+    account = Account.objects.get(pk=account_id)
+    account.delete()
+    return redirect("/sampleapp/" + str(id) + "/list")
+
+
 def account_form(request, id):
     if request.method == "GET":
         customer = Customer.objects.get(pk=id)
         form = AccountForm(initial={'owner': customer})
-        return render(request, "sampleapp/account_form.html", {"form": form, "owner": str(customer)})
+        return render(request, "sampleapp/account_form.html", {"form": form, "owner": str(customer), "customer_id": id})
     else:
         customer = Customer.objects.get(pk=id)
-        print("Creating account for " + str(customer))
         form = AccountForm(request.POST)
         if form.is_valid():
-            print("form is valid")
             form.save()
-        return redirect("/sampleapp/list")
+        return redirect("/sampleapp/" + str(id) + "/list")
+
+
+def account_list(request, id):
+    customer = Customer.objects.get(pk=id)
+    accounts = filter(lambda elem: elem.owner == customer, Account.objects.all())  # FIXME
+    context = {"account_list": accounts,
+               "customer_name": str(customer),
+               "customer_id": id}
+    return render(request, "sampleapp/account_list.html", context)

@@ -6,6 +6,6 @@
     Customer: {{owner}}
     {{form}}
     <button type="submit" class="btn btn-success"> Submit </button>
-    <a href="{% url 'customer_list' %}"> Back to customer</a>
+    <a href="{% url 'account_list' customer_id %}"> Back to account list</a>
 </form>
 {% endblock content %}
