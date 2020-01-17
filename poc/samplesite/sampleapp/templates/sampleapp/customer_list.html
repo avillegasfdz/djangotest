@@ -23,6 +23,9 @@
             <a href="{% url 'customer_update' customer.id %}">
                 Edit
             </a>
+            <a href="{% url 'add_account' customer.id %}">
+                Add accounts
+            </a>
             <form action="{% url 'customer_delete' customer.id %}" method="post">
                 {% csrf_token %}
                 <button type="submit">

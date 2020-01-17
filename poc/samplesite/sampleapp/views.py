@@ -5,14 +5,11 @@ from django.shortcuts import render, redirect
 
 from sampleapp.models import Customer, Administrator, Account
 
-
-from .forms import NameForm
+from .forms import NameForm, AccountForm
 from .forms import CustomerForm
 
 
-
 def index(request):
-
     # if Administrator.objects.all():
     #     Customer.objects.all().delete()
     #     Administrator.objects.all().delete()
@@ -63,7 +60,6 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 
-
 def added(request):
     if request.method == 'POST':
         form = NameForm(request.POST)
@@ -77,6 +73,7 @@ def added(request):
         return HttpResponse(template.render(context, request))
     else:
         pass
+
 
 def customer_list(request):
     context = {"customer_list": Customer.objects.all()}
@@ -92,18 +89,17 @@ def customer_form(request, id=None):
             customer = Customer.objects.get(pk=id)
             form = CustomerForm(instance=customer)
 
-        return render(request, "sampleapp/customer_form.html", {"form":form})
+        return render(request, "sampleapp/customer_form.html", {"form": form})
     else:
         if not id:  # Insert operation
             form = CustomerForm(request.POST, initial={'administrator': 1})
         else:  # Update Operation
             customer = Customer.objects.get(pk=id)
-            form = CustomerForm(request.POST,instance=customer)
+            form = CustomerForm(request.POST, instance=customer)
 
         if form.is_valid():
             form.save()
         return redirect("/sampleapp/list")
-
 
 
 def customer_delete(request, id):
@@ -111,3 +107,17 @@ def customer_delete(request, id):
     customer.delete()
     return redirect("/sampleapp/list")
 
+
+def account_form(request, id):
+    if request.method == "GET":
+        customer = Customer.objects.get(pk=id)
+        form = AccountForm(initial={'owner': customer})
+        return render(request, "sampleapp/account_form.html", {"form": form, "owner": str(customer)})
+    else:
+        customer = Customer.objects.get(pk=id)
+        print("Creating account for " + str(customer))
+        form = AccountForm(request.POST)
+        if form.is_valid():
+            print("form is valid")
+            form.save()
+        return redirect("/sampleapp/list")
