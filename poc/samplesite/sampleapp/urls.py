@@ -1,4 +1,5 @@
 from django.urls import path
+from django.views.generic import RedirectView
 
 from . import views
 
@@ -11,5 +12,5 @@ urlpatterns = [
     path('<int:id>/accounts', views.account_form,  name='add_account'),  # localhost:8000/sampleapp
     path('<int:id>/list/<int:account_id>/delete', views.account_delete, name='account_delete'),
     path('delete/<int:id>/', views.customer_delete, name='customer_delete'),
-    path('list/', views.customer_list, name='customer_list') # localhost:8000/sampleapp/list
+    path('list/', views.customer_list, name='customer_list'), # localhost:8000/sampleapp/list
 ]

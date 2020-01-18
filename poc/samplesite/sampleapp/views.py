@@ -2,8 +2,9 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render
 from django.template import loader
 from django.shortcuts import render, redirect
+from allauth.socialaccount.models import SocialAccount
 
-from sampleapp.models import Customer, Administrator, Account
+from sampleapp.models import Customer, Account
 
 from .forms import NameForm, AccountForm
 from .forms import CustomerForm
@@ -76,6 +77,7 @@ def added(request):
 
 
 def customer_list(request):
+    admin_id = SocialAccount.objects.filter(user=request.user, provider='google')[0].uid
     context = {"customer_list": Customer.objects.all()}
     return render(request, "sampleapp/customer_list.html", context)
 

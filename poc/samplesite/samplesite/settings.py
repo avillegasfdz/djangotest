@@ -150,5 +150,5 @@ SOCIALACCOUNT_PROVIDERS = {
 
 SITE_ID = 1
 
-ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login'
-LOGIN_REDIRECT_URL = '/sampleapp'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/sampleapp/list'

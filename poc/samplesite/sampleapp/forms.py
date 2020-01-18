@@ -1,8 +1,9 @@
+from allauth.socialaccount.models import SocialAccount
 from django import forms
 from localflavor.generic.countries.sepa import IBAN_SEPA_COUNTRIES
 from localflavor.generic.forms import IBANFormField
 
-from .models import Customer, Administrator, Account
+from .models import Customer, Account
 
 
 class NameForm(forms.Form):
@@ -13,7 +14,7 @@ class NameForm(forms.Form):
 
 
 class CustomerForm(forms.ModelForm):
-    administrator = forms.ModelChoiceField(queryset=Administrator.objects.all(), widget=forms.HiddenInput())
+    administrator = forms.ModelChoiceField(queryset=SocialAccount.objects.all(), widget=forms.HiddenInput())
 
     class Meta:
         model = Customer
