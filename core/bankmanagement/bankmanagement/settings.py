@@ -62,7 +62,7 @@ ROOT_URLCONF = 'bankmanagement.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -152,5 +152,5 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 SITE_ID = 1
-ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
-LOGIN_REDIRECT_URL = '/accounts/logout'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login'
+LOGIN_REDIRECT_URL = '/bank'

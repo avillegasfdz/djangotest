@@ -1,0 +1,10 @@
+{% load socialaccount %}
+
+<h1>Bank Management APP</h1>
+{% if user.is_authenticated %}
+<p>Welcome {{ user.username }} !!!</p>
+<a href="{% url 'account_logout' %}">Logout</a>
+<a href="{% url 'account_logout' %}">Manage clients</a>
+{% else %}
+<p>Not logged in.</p>
+{% endif %}

@@ -17,11 +17,8 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import RedirectView
+from . import views
 
 urlpatterns = [
-    url(r'^accounts/', include('allauth.urls')),
-    path('admin/', admin.site.urls),
-    path('',  RedirectView.as_view(url='/accounts/login')),
-    path('bank/', include('bank.urls'), name='welcome'),
-
+    path('', views.welcome, name="welcome"),
 ]
