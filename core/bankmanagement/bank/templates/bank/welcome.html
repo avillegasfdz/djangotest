@@ -4,7 +4,7 @@
 {% if user.is_authenticated %}
 <p>Welcome {{ user.username }} !!!</p>
 <a href="{% url 'account_logout' %}">Logout</a>
-<a href="{% url 'account_logout' %}">Manage clients</a>
+<a href="{% url 'client_list' %}">Manage clients</a>
 {% else %}
 <p>Not logged in.</p>
 {% endif %}

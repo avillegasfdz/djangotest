@@ -1,0 +1,44 @@
+{% if user.is_authenticated %}
+<p>Welcome {{ user.username }} !!!</p>
+<a href="{% url 'account_logout' %}">Logout</a>
+<table>
+    <thead>
+    <tr>
+        <td>Name</td>
+        <td>Last Name</td>
+        <td>Administrator</td>
+        <td>
+            <a href="{% url 'client_insert' user.id %}">
+                Add new
+            </a>
+        </td>
+    </tr>
+    </thead>
+    <tbody>
+    {% for client in client_list %}
+    <tr>
+        <td>{{client.name}}</td>
+        <td>{{client.last_name}}</td>
+        <td>{{client.administrator}}</td>
+        {% if client.administrator.user_id == user.id %}
+        <td><a href="{% url 'client_update' user.id client.id %}">
+                Edit
+            </a>
+            <a href="{% url 'account_list' user.id client.id  %}">
+                View accounts
+            </a>
+            <form action="{% url 'client_delete' user.id client.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit">
+                    Delete
+                </button>
+            </form>
+        </td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Not logged in.</p>
+{% endif %}

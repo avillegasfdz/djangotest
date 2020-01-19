@@ -21,4 +21,10 @@ from . import views
 
 urlpatterns = [
     path('', views.welcome, name="welcome"),
+    path('manager/', views.client_list, name='client_list'),
+    path('manager/<int:admin_id>', views.client_form, name='client_insert'),
+    path('manager/<int:admin_id>/clients/<int:client_id>', views.client_form, name='client_update'),
+    path('manager/<int:admin_id>/clients/<int:client_id>/delete', views.client_delete, name='client_delete'),
+    path('manager/<int:admin_id>/clients/<int:client_id>/list', views.account_list,  name='account_list'),
+    path('manager/<int:admin_id>/clients/<int:client_id>/accounts', views.account_form,  name='add_account'),
 ]
