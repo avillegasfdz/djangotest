@@ -6,8 +6,10 @@ from localflavor.generic.forms import IBANFormField
 from .models import Client, BankAccount
 
 
-
 class ClientForm(forms.ModelForm):
+    """
+    Class to implement the client form.
+    """
     administrator = forms.ModelChoiceField(queryset=SocialAccount.objects.all(), widget=forms.HiddenInput())
 
     class Meta:
@@ -23,9 +25,12 @@ class ClientForm(forms.ModelForm):
 
 
 class AccountForm(forms.ModelForm):
+    """
+    Class to add an account
+    """
     owner = forms.ModelChoiceField(queryset=Client.objects.all(),
                                    widget=forms.HiddenInput())
-    # iban = IBANFormField(include_countries=IBAN_SEPA_COUNTRIES)
+    iban = IBANFormField(include_countries=IBAN_SEPA_COUNTRIES)
 
     class Meta:
         model = BankAccount

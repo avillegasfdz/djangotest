@@ -13,10 +13,8 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf.urls import url
-from django.contrib import admin
-from django.urls import path, include
-from django.views.generic import RedirectView
+from django.urls import path
+
 from . import views
 
 urlpatterns = [
@@ -25,6 +23,8 @@ urlpatterns = [
     path('manager/<int:admin_id>', views.client_form, name='client_insert'),
     path('manager/<int:admin_id>/clients/<int:client_id>', views.client_form, name='client_update'),
     path('manager/<int:admin_id>/clients/<int:client_id>/delete', views.client_delete, name='client_delete'),
-    path('manager/<int:admin_id>/clients/<int:client_id>/list', views.account_list,  name='account_list'),
-    path('manager/<int:admin_id>/clients/<int:client_id>/accounts', views.account_form,  name='add_account'),
+    path('manager/<int:admin_id>/clients/<int:client_id>/list', views.account_list, name='account_list'),
+    path('manager/<int:admin_id>/clients/<int:client_id>/accounts', views.account_form, name='add_account'),
+    path('manager/<int:admin_id>/clients/<int:client_id>/accounts/<int:account_id>/delete', views.account_delete,
+         name='account_delete'),
 ]

@@ -1,0 +1,36 @@
+{% block content %}
+<table>
+    <thead>
+    <tr>
+        <td>Accounts for {{customer_name}}</td>
+        <td>
+            {% if editable %}
+            <a href="{% url 'add_account' user.id customer_id %}">
+                Add new
+            </a>
+            {% endif %}
+        </td>
+        <td>
+            <a href="{% url 'client_list' %}"> Back to list</a>
+        </td>
+    </tr>
+    </thead>
+    <tbody>
+    {% for account in account_list %}
+    <tr>
+        <td>{{account.iban}}</td>
+        <td>
+            {% if editable %}
+            <form action="{% url 'account_delete' user.id customer_id account.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit">
+                    Delete
+                </button>
+            </form>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

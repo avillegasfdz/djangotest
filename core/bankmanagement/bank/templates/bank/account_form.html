@@ -1,0 +1,11 @@
+
+
+{% block content %}
+<form action="" method="post" autocomplete="off">
+    {% csrf_token %}
+    Customer: {{owner}}
+    {{form}}
+    <button type="submit" class="btn btn-success"> Submit </button>
+    <a href="{% url 'account_list' user.id client_id %}"> Back to account list</a>
+</form>
+{% endblock content %}
