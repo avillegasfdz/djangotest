@@ -5,6 +5,6 @@
     {% csrf_token %}
     {{form}}
     <button type="submit" class="btn btn-success"> Submit </button>
-    <a href="{% url 'customer_list' %}"> Back to list</a>
+    <a href="{% url 'customer_list' admin.uid %}"> Back to list</a>
 </form>
 {% endblock content %}

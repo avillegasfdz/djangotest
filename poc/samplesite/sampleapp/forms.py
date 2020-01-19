@@ -31,7 +31,8 @@ class CustomerForm(forms.ModelForm):
 class AccountForm(forms.ModelForm):
     owner = forms.ModelChoiceField(queryset=Customer.objects.all(),
                                    widget=forms.HiddenInput())
-    iban = IBANFormField(include_countries=IBAN_SEPA_COUNTRIES)
+    # iban = IBANFormField(include_countries=IBAN_SEPA_COUNTRIES)
+
     class Meta:
         model = Account
         fields = ("owner", "iban")
@@ -42,4 +43,3 @@ class AccountForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(AccountForm, self).__init__(*args, **kwargs)
-

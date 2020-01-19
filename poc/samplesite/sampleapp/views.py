@@ -10,6 +10,10 @@ from .forms import NameForm, AccountForm
 from .forms import CustomerForm
 
 
+def get_adminitrator(admin_id):
+    return SocialAccount.objects.get(uid=admin_id)
+
+
 def index(request):
     # if Administrator.objects.all():
     #     Customer.objects.all().delete()
@@ -46,7 +50,7 @@ def index(request):
     #                     "CUSTOMERS: " + customers_str + "\n" +
     #                     "ACCOUNTS: " + accounts_str + "\n")
 
-    administrator_list = Administrator.objects.all()
+    administrator_list = SocialAccount.objects.all()
     customer_list = Customer.objects.all()
 
     template = loader.get_template('sampleapp/index.html')
@@ -65,9 +69,9 @@ def added(request):
     if request.method == 'POST':
         form = NameForm(request.POST)
         # check whether it's valid:
-        if form.is_valid():
-            new_admin = Administrator(name=form.cleaned_data['your_name'])
-            new_admin.save()
+        # if form.is_valid():
+        #     new_admin = Administrator(name=form.cleaned_data['your_name'])
+        #     new_admin.save()
 
         template = loader.get_template('sampleapp/added.html')
         context = {}
@@ -76,63 +80,70 @@ def added(request):
         pass
 
 
-def customer_list(request):
-    admin_id = SocialAccount.objects.filter(user=request.user, provider='google')[0].uid
-    context = {"customer_list": Customer.objects.all()}
+def customer_list(request, admin_id):
+    admin = get_adminitrator(admin_id)
+    context = {"customer_list": Customer.objects.all(),
+               "admin": admin}
     return render(request, "sampleapp/customer_list.html", context)
 
 
-def customer_form(request, id=None):
+def customer_form(request, admin_id, id=None):
+    administrator = get_adminitrator(admin_id)
     if request.method == "GET":
         if not id:  # Insert operation
-            administrator = Administrator.objects.all()[0]
             form = CustomerForm(initial={'administrator': administrator})
         else:  # Update Operation
             customer = Customer.objects.get(pk=id)
             form = CustomerForm(instance=customer)
 
-        return render(request, "sampleapp/customer_form.html", {"form": form})
+        return render(request, "sampleapp/customer_form.html", {"form": form, "admin": administrator})
     else:
         if not id:  # Insert operation
-            form = CustomerForm(request.POST, initial={'administrator': 1})
+            form = CustomerForm(request.POST, initial={'administrator': administrator})
         else:  # Update Operation
             customer = Customer.objects.get(pk=id)
             form = CustomerForm(request.POST, instance=customer)
 
         if form.is_valid():
             form.save()
-        return redirect("/sampleapp/list")
+        return redirect("/sampleapp/" + str(admin_id) + "/list")
 
 
-def customer_delete(request, id):
+def customer_delete(request, admin_id, id):
     customer = Customer.objects.get(pk=id)
     customer.delete()
-    return redirect("/sampleapp/list")
+    return redirect("/sampleapp/" + str(admin_id) + "/list")
 
 
-def account_delete(request, id, account_id):
+def account_delete(request, admin_id, id, account_id):
     account = Account.objects.get(pk=account_id)
     account.delete()
-    return redirect("/sampleapp/" + str(id) + "/list")
+    return redirect("/sampleapp/" + str(admin_id) + "/list")
 
 
-def account_form(request, id):
+def account_form(request, admin_id, id):
     if request.method == "GET":
         customer = Customer.objects.get(pk=id)
         form = AccountForm(initial={'owner': customer})
-        return render(request, "sampleapp/account_form.html", {"form": form, "owner": str(customer), "customer_id": id})
+        return render(request, "sampleapp/account_form.html", {"form": form,
+                                                               "owner": str(customer),
+                                                               "customer_id": id,
+                                                               "admin_id": admin_id})
     else:
         customer = Customer.objects.get(pk=id)
-        form = AccountForm(request.POST)
+        form = AccountForm(request.POST, initial={'owner': customer})
         if form.is_valid():
             form.save()
-        return redirect("/sampleapp/" + str(id) + "/list")
+        return redirect("/sampleapp/" + str(admin_id) + "/customers/" + str(id) + "/list")
 
 
-def account_list(request, id):
+def account_list(request, admin_id, id):
     customer = Customer.objects.get(pk=id)
+    admin = get_adminitrator(admin_id)
     accounts = filter(lambda elem: elem.owner == customer, Account.objects.all())  # FIXME
     context = {"account_list": accounts,
                "customer_name": str(customer),
-               "customer_id": id}
+               "customer_id": id,
+               "admin": admin,
+               "editable": admin == customer.administrator, }
     return render(request, "sampleapp/account_list.html", context)
