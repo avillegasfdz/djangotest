@@ -93,13 +93,17 @@ def account_form(request, admin_id, client_id):
         return render(request, "bank/account_form.html", {"form": form,
                                                           "owner": str(client),
                                                           "client_id": client_id,
-                                                          "admin_id": admin_id})
+                                                          "admin_id": admin_id, })
     else:
         client = Client.objects.get(pk=client_id)
         form = AccountForm(request.POST, initial={'owner': client})
         if form.is_valid():
             form.save()
-        return redirect("/bank/manager/" + str(admin_id) + "/clients/" + str(client_id) + "/list")
+            return redirect("/bank/manager/" + str(admin_id) + "/clients/" + str(client_id) + "/list")
+        return render(request, "bank/account_form.html", {"form": form,
+                                                          "owner": str(client),
+                                                          "client_id": client_id,
+                                                          "admin_id": admin_id, })
 
 
 def account_list(request, admin_id, client_id):
