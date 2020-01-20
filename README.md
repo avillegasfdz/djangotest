@@ -21,9 +21,7 @@ Please install the following packages (assuming `python` points to your Python 3
 * Required package for PostgreSQL `python -m pip install psycopg2` 
 (Note: this Python package has a dependency with PostgreSQL devel in Ubuntu.
 If the installation fails, please install `sudo apt-get install libpq-dev`)
-* Django all auth: `python -m pip install django-allauth`
-* LocalFlavor: `python -m pip install localflavor`
-
+* Django all auth: `python -m pip install django-localflavor`
 
 ## Initialization
 * Start the Postgres Docker container: `docker-compose -f stack.yml up`
@@ -32,3 +30,11 @@ If the installation fails, please install `sudo apt-get install libpq-dev`)
 client_id=981887593937-be448n97e939ictakl7kaikmqqlrfu6g.apps.googleusercontent.com
 and secret=J0y4bq5e6mS-MNqFeWvjMnBS
 
+## Test
+* Install VirtualBox: `sudo apt install virtualbox` 
+* Download Vagrant: `curl -O https://releases.hashicorp.com/vagrant/2.2.6/vagrant_2.2.6_x86_64.deb`
+* Install Vagrant: `sudo apt install ./vagrant_2.2.6_x86_64.deb`
+* CD to the directory to store the Vagrant image.
+* Download the image: `vagrant box add bento/ubuntu-18.04`
+* Start the Vagrant file: `vagrant init bento/ubuntu-18.04`
+* Configure the Vagrantfile as provided in the `Vagrantfile.org` file.
