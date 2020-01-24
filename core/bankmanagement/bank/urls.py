@@ -28,3 +28,4 @@ urlpatterns = [
     path('manager/<int:admin_id>/clients/<int:client_id>/accounts/<int:account_id>/delete', views.account_delete,
          name='account_delete'),
 ]
+
